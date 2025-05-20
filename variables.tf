@@ -14,6 +14,10 @@ variable "volumes" {
       datastore_id = string
       vmid         = optional(number, 9999)
       format       = optional(string, "raw")
+      claim_ref = list(object({
+        name      = string
+        namespace = optional(string)
+      }))
     })
   )
 }

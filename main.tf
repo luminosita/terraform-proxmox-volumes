@@ -31,5 +31,6 @@ module "persistent-volume" {
     capacity      = each.value.size
     volume_handle = "${var.proxmox_api.cluster_name}/${module.proxmox-volume[each.key].node}/${module.proxmox-volume[each.key].datastore_id}/${module.proxmox-volume[each.key].filename}"
     datastore_id  = each.value.datastore_id
+    claim_ref     = each.value.claim_ref
   }
 }

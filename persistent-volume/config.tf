@@ -10,6 +10,13 @@ resource "kubernetes_persistent_volume" "pv" {
     storage_class_name = var.volume.storage_class_name
     mount_options      = var.volume.mount_options
     volume_mode        = var.volume.volume_mode
+    dynamic "claim_ref" {
+      for_each = length(var.volume.claim_ref) > 0 ? [1] : []
+      content {
+        name      = var.volume.claim_ref[0].name
+        namespace = var.volume.claim_ref[0].namespace
+      }  
+    }
     persistent_volume_source {
       csi {
         driver        = var.volume.driver

@@ -1,10 +1,14 @@
 variable "volume" {
   description = "Volume configuration"
   type = object({
-    name               = string
-    capacity           = string
-    volume_handle      = string
-    access_modes       = optional(list(string), ["ReadWriteOnce"])
+    name          = string
+    capacity      = string
+    volume_handle = string
+    access_modes  = optional(list(string), ["ReadWriteOnce"])
+    claim_ref = list(object({
+      name      = string
+      namespace = optional(string)
+    }))
     storage_class_name = optional(string, "proxmox-csi")
     fs_type            = optional(string, "ext4")
     driver             = optional(string, "csi.proxmox.sinextra.dev")
